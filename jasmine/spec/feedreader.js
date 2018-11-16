@@ -25,13 +25,12 @@ $(function() {
             expect(allFeeds.length).not.toBe(0);
         });
 
-        /* TODO: Write a test that loops through each feed
-        * in the allFeeds object and ensures it has a URL defined
-        * and that the URL is not empty.
-        */
+        // This test loops through each feed and determines if the URL
+        // defined and not empty.
         function test_for_url(feed) {
-            it('have a URL defined', function() {
-                expect(feed.url).toBeTruthy();
+            it('URL defined and not empty', function() {
+              expect(feed.url).toBeDefined();
+              expect(feed.url.length).not.toBe(0);
             });
 
          }
@@ -50,11 +49,6 @@ $(function() {
 
     // Menu test suite.
     describe('The menu', function() {
-      /* TODO: Write a test that ensures the menu element is
-       * hidden by default. You'll have to analyze the HTML and
-       * the CSS to determine how we're performing the
-       * hiding/showing of the menu element.
-       */
 
         // This test ensures the menu element is hidden by default.
         it('hides by default', function() {
@@ -85,18 +79,14 @@ $(function() {
 
         // tests that there is at least one entry in feed.
         it('at least a single entry element is within feed container', function() {
-            expect($('.entry').length).toBeGreaterThan(0);
+            expect($('.feed').find('.entry').length).toBeGreaterThan(0);
         });
     });
 
     describe('New Feed Selection', function() {
 
-      /* TODO: Write a test that ensures when a new feed is loaded
-       * by the loadFeed function that the content actually changes.
-       * Remember, loadFeed() is asynchronous.
-       */
-        var $previousfeed;
-        var $afterfeed;
+        var previousfeed;
+        var afterfeed;
 
         beforeEach(function(done) {
             loadFeed(0, function() {
