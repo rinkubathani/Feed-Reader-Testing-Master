@@ -27,13 +27,14 @@ $(function() {
 
         // This test loops through each feed and determines if the URL
         // defined and not empty.
-        function test_for_url(feed) {
-            it('URL defined and not empty', function() {
-              expect(feed.url).toBeDefined();
-              expect(feed.url.length).not.toBe(0);
-            });
+        it('URLs are defined and non-empty', function() {
 
-         }
+            // Loop through allFeeds and expect that url is defined and non-empty
+            allFeeds.forEach(function(feed) {
+                expect(feed.url).toBeDefined();
+                expect(feed.url.length).not.toBe(0);
+            });
+        });
 
         // This test looped through each feed and determines that each
         // feed has a name and not empty.
@@ -89,10 +90,18 @@ $(function() {
         var afterfeed;
 
         beforeEach(function(done) {
+
+            // Load feed with index of 0 and save its h2 text to variable
             loadFeed(0, function() {
                 previousfeed = $('.feed').html();
-                done();
+
+                // Load feed with index of 1 and save its h2 text to variable
+                loadFeed(1, function() {
+                    afterfeed = $('.feed').html();
+                    done();
+                });
             });
+
         });
 
         it('content changes when new feed is loaded', function(done) {
