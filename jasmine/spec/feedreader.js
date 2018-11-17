@@ -80,36 +80,24 @@ $(function() {
 
         // tests that there is at least one entry in feed.
         it('at least a single entry element is within feed container', function() {
-            expect($('.feed').find('.entry').length).toBeGreaterThan(0);
+            expect($('.feed .entry').length).toBeGreaterThan(0);
         });
     });
 
     describe('New Feed Selection', function() {
+            var oldFeed;
 
-        var previousfeed;
-        var afterfeed;
-
-        beforeEach(function(done) {
-
-            // Load feed with index of 0 and save its h2 text to variable
-            loadFeed(0, function() {
-                previousfeed = $('.feed').html();
-
-                // Load feed with index of 1 and save its h2 text to variable
-                loadFeed(1, function() {
-                    afterfeed = $('.feed').html();
-                    done();
+            beforeEach(function(done) {
+                loadFeed(0, function() {
+                    // store old feed
+                    oldFeed = $('.feed').html();
+                    // fetch newer feed
+                    loadFeed(1, done);
                 });
             });
 
-        });
-
-        it('content changes when new feed is loaded', function(done) {
-            loadFeed(1, function() {
-                afterfeed = $('.feed').html();
-                expect(afterfeed).not.toEqual(previousfeed);
-                done();
+            it('is different from old', function() {
+                expect($('.feed').html()).not.toBe(oldFeed);
             });
         });
-    });
 }());
